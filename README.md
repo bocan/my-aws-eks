@@ -28,12 +28,18 @@ It currently features:
 * Cost to remain as low as possible. 
 * Ideally, I want this project to always run with the latest Terraform - though this requires compatibility with the public AWS terraform modules.
 
+## Installation.
+
+* This was last run with Terraform 0.15.4. 
+* Just edit what you need to in provider.tf to allow you to connect, and put what you want into local.tf 
+
 ## Todo
 
 * I need to test the autoscaling in anger.
 * The Autoscaler pod isn't tied to the on-demand node yet.
 * Setup pre-commit tooling.
-* I'd like to security scan all this somehow.
+* I'd like to security scan all this in multiple tools. I've done it with Checkov and it's ok there.
 * I wanted to use Launch Templates instead of Launch Configs - but there seems to be a bug in the EKS terraform modules where it's ignoring the Spot configuration.
 * Testing Framework?
 * Encryped Logs - I couldn't make it work at first.  Need to revisit this.
+* Build a list of must-have Helm charts you'd tend to put into an EKS/K8S cluster.  I'm thinking it would start with, Vault, Prometheus (via its Operator), ???
