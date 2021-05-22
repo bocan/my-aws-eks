@@ -3,6 +3,7 @@ data "aws_availability_zones" "available" {}
 resource "aws_kms_key" "eks" {
   description         = "EKS Secret Encryption Key"
   enable_key_rotation = true
+  tags                = local.tags
 }
 
 resource "aws_kms_alias" "eks" {

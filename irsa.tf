@@ -5,12 +5,14 @@ module "iam_assumable_role_admin" {
   provider_url                  = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns              = [aws_iam_policy.cluster_autoscaler.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:${local.k8s_service_account_name}"]
+  tags                          = local.tags
 }
 
 resource "aws_iam_policy" "cluster_autoscaler" {
   name_prefix = "${local.vpc_name}-cluster-autoscaler"
   description = "EKS cluster-autoscaler policy for cluster ${module.eks.cluster_id}"
   policy      = data.aws_iam_policy_document.cluster_autoscaler.json
+  tags                          = local.tags
 }
 
 data "aws_caller_identity" "current" {}
