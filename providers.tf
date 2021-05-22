@@ -2,7 +2,7 @@ provider "aws" {
   region  = local.region
   profile = "admin"
   assume_role {
-    role_arn = "arn:aws:iam::521687163550:role/LordsOfTheCode"
+    role_arn = "arn:aws:iam::123456789012:role/WhateverRole"
   }
 }
 
