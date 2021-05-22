@@ -12,7 +12,7 @@ It currently features:
 * EC2 Workers with encrypted root volumes.
 * 2 Helm Charts:
     * [Cluster-Autoscaler](https://github.com/kubernetes/autoscaler) for autoscaling
-    * [AWS's Node Termination Handler] to watch for Spot instances being terminiated and draining them, rebalancing requests, and scheduled event draining
+    * [AWS's Node Termination Handler](https://github.com/aws/aws-node-termination-handler) to watch for Spot instances being terminiated and draining them, rebalancing requests, and scheduled event draining
 * Configurable ausoscaling EC2 Pools. By default it runs:
     * 1 t3.small instance for safety.  The autoscaler pod should run here.
     * 1 to 5 t3.medium spot instances.  Ideally, most of the workload should run on these. The spot price is set to the on-demand price.
