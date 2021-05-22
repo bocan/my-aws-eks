@@ -13,6 +13,8 @@ resource "aws_iam_policy" "cluster_autoscaler" {
   policy      = data.aws_iam_policy_document.cluster_autoscaler.json
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "cluster_autoscaler" {
   statement {
     sid    = "clusterAutoscalerAll"
@@ -39,7 +41,7 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
       "autoscaling:UpdateAutoScalingGroup",
     ]
 
-    resources = ["*"]
+    resources = ["arn:aws:autoscaling:*:${data.aws_caller_identity.current.account_id}:autoScalingGroup:*:autoScalingGroupName/*"]
 
     condition {
       test     = "StringEquals"
