@@ -2,7 +2,7 @@
 
 ## Description
 
-This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too.
+I couldn't find any example Terraform projects to make a "good" EKS cluster, so I cobbled this one together.  This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too.
 
 It currently features:
 
@@ -24,6 +24,7 @@ It currently features:
 
 ## Key Aims
 
+* Cost to remain as low as possible. 
 * Ideally, I want this project to always run with the latest Terraform - though this requires compatibility with the public AWS terraform modules.
 
 ## Todo
@@ -33,3 +34,4 @@ It currently features:
 * Setup pre-commit tooling.
 * I'd like to security scan all this somehow.
 * I wanted to use Launch Templates instead of Launch Configs - but there seems to be a bug in the EKS terraform modules where it's ignoring the Spot configuration.
+* Testing Framework?
