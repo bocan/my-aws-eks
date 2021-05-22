@@ -1,7 +1,8 @@
 data "aws_availability_zones" "available" {}
 
 resource "aws_kms_key" "eks" {
-  description = "EKS Secret Encryption Key"
+  description         = "EKS Secret Encryption Key"
+  enable_key_rotation = true
 }
 
 resource "aws_kms_alias" "eks" {
