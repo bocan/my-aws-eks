@@ -32,6 +32,43 @@ It currently features:
 
 * This was last run with Terraform 0.15.4. 
 * Just edit what you need to in provider.tf to allow you to connect, and put what you want into local.tf 
+* Run a terraform apply.
+
+This is what ends up running after your first install:
+```
+╰─❯ kubectl get all -A
+NAMESPACE     NAME                                                             READY   STATUS    RESTARTS   AGE
+kube-system   pod/aws-node-termination-handler-2bjhv                           1/1     Running   0          113s
+kube-system   pod/aws-node-termination-handler-vjjs9                           1/1     Running   0          113s
+kube-system   pod/calico-kube-controllers-7f89f88c5b-8qtfm                     1/1     Running   0          119s
+kube-system   pod/calico-node-92ssc                                            1/1     Running   0          119s
+kube-system   pod/calico-node-mcps8                                            1/1     Running   0          119s
+kube-system   pod/cluster-autoscaler-aws-cluster-autoscaler-6cf6577c6f-tllkp   1/1     Running   0          114s
+kube-system   pod/coredns-996495cbb-sq9l4                                      1/1     Running   0          6m28s
+kube-system   pod/coredns-996495cbb-ssp49                                      1/1     Running   0          6m28s
+kube-system   pod/kube-proxy-6fqmt                                             1/1     Running   0          2m8s
+kube-system   pod/kube-proxy-jqpt7                                             1/1     Running   0          2m4s
+
+NAMESPACE     NAME                                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+default       service/kubernetes                                  ClusterIP   10.100.0.1      <none>        443/TCP         6m39s
+kube-system   service/cluster-autoscaler-aws-cluster-autoscaler   ClusterIP   10.100.14.189   <none>        8085/TCP        115s
+kube-system   service/kube-dns                                    ClusterIP   10.100.0.10     <none>        53/UDP,53/TCP   6m37s
+
+NAMESPACE     NAME                                          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+kube-system   daemonset.apps/aws-node-termination-handler   2         2         2       2            2           kubernetes.io/os=linux   114s
+kube-system   daemonset.apps/calico-node                    2         2         2       2            2           kubernetes.io/os=linux   2m
+kube-system   daemonset.apps/kube-proxy                     2         2         2       2            2           <none>                   6m37s
+
+NAMESPACE     NAME                                                        READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/calico-kube-controllers                     1/1     1            1           2m
+kube-system   deployment.apps/cluster-autoscaler-aws-cluster-autoscaler   1/1     1            1           115s
+kube-system   deployment.apps/coredns                                     2/2     2            2           6m37s
+
+NAMESPACE     NAME                                                                   DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/calico-kube-controllers-7f89f88c5b                     1         1         1       2m
+kube-system   replicaset.apps/cluster-autoscaler-aws-cluster-autoscaler-6cf6577c6f   1         1         1       115s
+kube-system   replicaset.apps/coredns-996495cbb                                      2         2         2       6m28s
+```
 
 ## Todo
 
