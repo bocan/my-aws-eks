@@ -72,7 +72,6 @@ kube-system   replicaset.apps/coredns-996495cbb                                 
 
 ## Todo
 
-* I need to test the autoscaling in anger.
 * The Autoscaler pod isn't tied to the on-demand node yet.
 * Setup pre-commit tooling.
 * I'd like to security scan all this in multiple tools. I've done it with Checkov and it's ok there.
