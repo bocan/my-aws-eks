@@ -2,13 +2,14 @@
 
 ## Description
 
-I couldn't find any example Terraform projects to make an EKS cluster that I was happy with, so I cobbled this one together.  This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too.
+I couldn't find any example Terraform projects to make an EKS cluster that I was happy with, so I cobbled this one together.  This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too if your apps are stateful and can tolerate using spot instances.
 
 It currently features:
 
 * Custom VPC Setup.
 * Kubernetes 1.20.
-* Secrets Encryption via a KMS key.
+* Secrets Encryption via a rotating customer-managed KMS key.
+* Cloudwatch Encryption via a rotating customer-managed KMS key.
 * Control Plane logging to Cloudwatch.
 * Common Tagging across all created resources for easy billing resolution.
 * Calico networking instead of "aws-node"
@@ -27,6 +28,7 @@ It currently features:
 
 * Cost to remain as low as possible. 
 * Ideally, I want this project to always run with the latest Terraform - though this requires compatibility with the public AWS terraform modules.
+* Helm is the tool of choice for installing into the cluster - Convince me otherwise.
 
 ## Installation.
 
@@ -73,9 +75,12 @@ kube-system   replicaset.apps/coredns-996495cbb                                 
 ## Todo
 
 * The Autoscaler pod isn't tied to the on-demand node yet.
-* Setup pre-commit tooling.
-* I'd like to security scan all this in multiple tools. I've done it with Checkov and it's ok there.
+* Setup pre-commit tooling, including a Checkov security scan.
 * I wanted to use Launch Templates instead of Launch Configs - but there seems to be a bug in the EKS terraform modules where it's ignoring the Spot configuration.
 * Testing Framework?
-* Encryped Logs - I couldn't make it work at first.  Need to revisit this.
-* Build a list of must-have Helm charts you'd tend to put into an EKS/K8S cluster.  I'm thinking it would start with, Vault, Prometheus (via its Operator), ???
+* Build a list of must-have Helm charts you'd tend to put into an EKS/K8S cluster.  I'm thinking it would start with:
+    * Vault
+    * Consul ?
+    * Prometheus (via its Operator)
+    * Cert Manager
+* How can this integrate with Route53?  Should it?  
