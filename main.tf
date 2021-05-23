@@ -1,16 +1,5 @@
 data "aws_availability_zones" "available" {}
 
-resource "aws_kms_key" "eks" {
-  description         = "EKS Secret Encryption Key"
-  enable_key_rotation = true
-  tags                = local.tags
-}
-
-resource "aws_kms_alias" "eks" {
-  name          = "alias/${local.vpc_name}-eks-key-alias"
-  target_key_id = aws_kms_key.eks.key_id
-}
-
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -50,6 +39,7 @@ module "eks" {
   vpc_id                    = module.vpc.vpc_id
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   enable_irsa               = true
+  cluster_log_kms_key_id    = aws_kms_key.ekslogs.arn
 
   # This fixes a bug.  There currently isn't a 1.20 windows.  Only Linux
   worker_ami_name_filter_windows = "*"
