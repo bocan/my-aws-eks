@@ -2,7 +2,7 @@
 
 ## Description
 
-I couldn't find any example Terraform projects to make an EKS cluster that I was happy with, so I cobbled this one together.  This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too if your apps are stateful and can tolerate using spot instances.
+I couldn't find any example Terraform projects to make an EKS cluster that I was happy with, so I cobbled this one together.  This project spins up a decent EKS cluster for demos, development, or testing. In theory, you could scale it up to production too if your apps are stateful and can tolerate using spot instances - but it's really meant to be for short/medium term environments that you spin up or down at need.
 
 It currently features:
 
@@ -74,6 +74,7 @@ kube-system   replicaset.apps/coredns-996495cbb                                 
 
 ## Todo
 
+* Add [an Ingress Controller](#5) - probably AWS Load Balancer Controller. 
 * The Autoscaler pod isn't tied to the on-demand node yet.
 * Setup pre-commit tooling, including a Checkov security scan.
 * I wanted to use Launch Templates instead of Launch Configs - but there seems to be a bug in the EKS terraform modules where it's ignoring the Spot configuration.
@@ -83,4 +84,5 @@ kube-system   replicaset.apps/coredns-996495cbb                                 
     * Consul ?
     * Prometheus (via its Operator)
     * Cert Manager
+    * Keycloak
 * How can this integrate with Route53?  Should it?  
