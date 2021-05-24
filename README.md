@@ -74,7 +74,7 @@ kube-system   replicaset.apps/coredns-996495cbb                                 
 
 ## Todo
 
-* Add [an Ingress Controller](#5) - probably AWS Load Balancer Controller. 
+* Add [an Ingress Controller](https://github.com/bocan/my-aws-eks/issues/5) - probably AWS Load Balancer Controller. 
 * The Autoscaler pod isn't tied to the on-demand node yet.
 * Setup pre-commit tooling, including a Checkov security scan.
 * I wanted to use Launch Templates instead of Launch Configs - but there seems to be a bug in the EKS terraform modules where it's ignoring the Spot configuration.
