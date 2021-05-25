@@ -1,9 +1,9 @@
 provider "aws" {
   region  = local.region
-  profile = "admin"
-  assume_role {
-    role_arn = "arn:aws:iam::123456789012:role/WhateverRole"
-  }
+  profile = "mysaml"
+  #  assume_role {
+  #    role_arn = "arn:aws:iam::123456789012:role/WhateverRole"
+  #  }
 }
 
 data "aws_eks_cluster" "cluster" {
