@@ -12,7 +12,7 @@ resource "aws_iam_policy" "cluster_autoscaler" {
   name_prefix = "${local.vpc_name}-cluster-autoscaler"
   description = "EKS cluster-autoscaler policy for cluster ${module.eks.cluster_id}"
   policy      = data.aws_iam_policy_document.cluster_autoscaler.json
-  tags                          = local.tags
+  tags        = local.tags
 }
 
 data "aws_caller_identity" "current" {}
