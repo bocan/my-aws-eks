@@ -9,22 +9,24 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+<a name="v0.11.0"></a>
+## [v0.11.0-rc.1] - 2021-06-11
+FEATURES:
+- Use terraform provider default tags to automatically tag resources
+- Support Terraform 1.0
+
 
 <a name="v0.10.0"></a>
-## [v0.10.0] - 2021-05-27
+## v0.10.0 - 2021-05-27
 FEATURES:
 - Add aws-load-balancer-controller ingress controller
 - Adding changelog generation, version tools, and a Makefile for releases
 - Add changelog generation tooling
-
-
-<a name="v0.9.0"></a>
-## v0.9.0 - 2021-05-26
-FEATURES:
 - Enable changelog updating
 - Enable pre-commit at Github
 - Add pre-commit tooling, and update one tf module
 
 
-[Unreleased]: https://github.com/bocan/my-aws-eks/compare/v0.10.0...HEAD
-[v0.10.0]: https://github.com/bocan/my-aws-eks/compare/v0.9.0...v0.10.0
+[Unreleased]: https://github.com/bocan/my-aws-eks/compare/v0.11.0-rc.2...HEAD
+[v0.11.0-rc.2]: https://github.com/bocan/my-aws-eks/compare/v0.11.0-rc.1...v0.11.0-rc.2
+[v0.11.0-rc.1]: https://github.com/bocan/my-aws-eks/compare/v0.10.0...v0.11.0-rc.1
