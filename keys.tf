@@ -1,7 +1,6 @@
 resource "aws_kms_key" "eks" {
   description         = "EKS Secret Encryption Key"
   enable_key_rotation = true
-  tags                = local.tags
 }
 
 resource "aws_kms_alias" "eks" {
@@ -13,7 +12,6 @@ resource "aws_kms_alias" "eks" {
 resource "aws_kms_key" "ekslogs" {
   description         = "EKS Log Group Encryption Key"
   enable_key_rotation = true
-  tags                = local.tags
   policy              = data.aws_iam_policy_document.logging.json
 }
 

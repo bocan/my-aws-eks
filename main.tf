@@ -13,7 +13,6 @@ module "vpc" {
   one_nat_gateway_per_az = false
   enable_dns_hostnames   = true
   enable_dns_support     = true
-  tags                   = local.tags
 
   enable_dhcp_options        = true
   dhcp_options_domain_name   = "service.consul"
@@ -43,8 +42,6 @@ module "eks" {
 
   # This fixes a bug.  There currently isn't a 1.20 windows.  Only Linux
   worker_ami_name_filter_windows = "*"
-
-  tags = local.tags
 
   cluster_encryption_config = [
     {
