@@ -4,6 +4,9 @@ provider "aws" {
   #  assume_role {
   #    role_arn = "arn:aws:iam::123456789012:role/WhateverRole"
   #  }
+  default_tags {
+    tags = local.tags
+  }
 }
 
 data "aws_eks_cluster" "cluster" {

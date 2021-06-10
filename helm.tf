@@ -59,7 +59,6 @@ module "alb_controller" {
 
   k8s_cluster_type = "eks"
   k8s_namespace    = "kube-system"
-  aws_tags         = local.tags
 
   aws_region_name  = local.region
   k8s_cluster_name = local.cluster_name
