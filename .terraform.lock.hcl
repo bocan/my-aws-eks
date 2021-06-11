@@ -1,6 +1,23 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/gavinbunney/kubectl" {
+  version     = "1.11.1"
+  constraints = ">= 1.9.4"
+  hashes = [
+    "h1:RiJYC+yQcp4afm5WaTYhDrV06mwBK9GIhNIAf/ilIcg=",
+    "zh:042ed9e5b3fa118ab7fdf2b7a13a342da0cd6027345d227f0ff14fae77496f67",
+    "zh:0997e87ac14e2d986fc80c7f38087381965f6689cc88d118fc98fb3c54dbffa5",
+    "zh:3495f6584cb2dfdff7dba33391f8bf6a9bd8bbfe631bb013f9976e7df700c4aa",
+    "zh:753ee396444970b702a6b52700ece6e62e6b3e0c2fb06b66785977583c8dc771",
+    "zh:9b21d0a86c3a01d094687f37d8ec4156b7568357bf102fb4064a6e3c643cb369",
+    "zh:a34f95564109ff87e0833389ac83ab1883f71e21dc2e9614c2c4b4923f27f2c9",
+    "zh:abcd981a24d5652a00fb4f7f8b6f3ae023c352446faf2e41578441cab05dba36",
+    "zh:caf9ba9bc5606f32aaae8dd3639fcefd8816f440e05c706314cc0001e28eea10",
+    "zh:ea8a6e7ce9914d4578f1b44999e1ec343f11087be4da8586b5aec86b6c28152b",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/aws" {
   version     = "3.45.0"
   constraints = ">= 2.23.0, >= 3.15.0, >= 3.40.0, >= 3.42.0, >= 3.43.0"
