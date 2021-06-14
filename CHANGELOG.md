@@ -10,10 +10,17 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 
 <a name="v0.11.0"></a>
-## [v0.11.0-rc.1] - 2021-06-11
+## [v0.11.0] - 2021-06-11
 FEATURES:
 - Use terraform provider default tags to automatically tag resources
 - Support Terraform 1.0
+- Enable VPC Flow logs to Cloudwatch
+
+ADDED BUT DISABLED BY DEFAULT UNTIL TESTED:
+- Add ALB Load Balancer Ingress Controller Helm Chart
+- Add NGINX Ingressr Controller Helm Chart
+- Add External DNS Helm Chart
+- Add Certificate Manager Helm Chart
 
 
 <a name="v0.10.0"></a>
@@ -28,5 +35,4 @@ FEATURES:
 
 
 [Unreleased]: https://github.com/bocan/my-aws-eks/compare/v0.11.0-rc.2...HEAD
-[v0.11.0-rc.2]: https://github.com/bocan/my-aws-eks/compare/v0.11.0-rc.1...v0.11.0-rc.2
-[v0.11.0-rc.1]: https://github.com/bocan/my-aws-eks/compare/v0.10.0...v0.11.0-rc.1
+[v0.11.0]: https://github.com/bocan/my-aws-eks/compare/v0.10.0...v0.11.0
