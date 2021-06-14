@@ -24,9 +24,9 @@ locals {
 
   enable_termination_handler      = true  # ok
   enable_autoscaler               = true  # ok
-  enable_alb_ingress_controller   = false # untested
-  enable_nginx_ingress_controller = false  # untested
-  enable_external_dns             = false  # untested
+  enable_alb_ingress_controller   = true  # ok
+  enable_nginx_ingress_controller = false # untested
+  enable_external_dns             = false # untested
   enable_certificate_manager      = false # BROKEN
 
   #map_accounts = []

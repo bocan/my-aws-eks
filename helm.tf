@@ -55,16 +55,18 @@ resource "helm_release" "autoscaler" {
 
 }
 
-
 module "alb_ingress_controller" {
   count  = local.enable_alb_ingress_controller ? 1 : 0
-  source = "git::github.com/GSA/terraform-kubernetes-aws-load-balancer-controller?ref=v4.1.0"
+  #source = "git::github.com/GSA/terraform-kubernetes-aws-load-balancer-controller?ref=v4.1.0"
+  source = "github.com/ashtonian/terraform-kubernetes-aws-load-balancer-controller"
   depends_on = [
     module.eks, null_resource.kube_config, null_resource.install_calico_plugin
   ]
 
   k8s_cluster_type = "eks"
   k8s_namespace    = "kube-system"
+
+  enable_host_networking = true
 
   aws_region_name  = local.region
   k8s_cluster_name = local.cluster_name
