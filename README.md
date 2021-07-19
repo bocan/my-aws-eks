@@ -12,7 +12,7 @@ It currently features:
 * Cloudwatch Encryption via a rotating customer-managed KMS key.
 * Control Plane logging to Cloudwatch.
 * Common Tagging across all created resources for easy billing resolution.
-* Calico networking instead of "aws-node"
+* [Calico networking](https://www.tigera.io/project-calico/) instead of "aws-node"
 * EC2 worker nodes with encrypted root volumes.
 * 2 Helm Charts:
     * [Cluster-Autoscaler](https://github.com/kubernetes/autoscaler) for autoscaling
