@@ -3,7 +3,7 @@ locals {
   vpc_name        = "fu-labs"
   cluster_name    = "fu-labs-eks-cluster"
   cidr            = "172.22.0.0/16"
-  cluster_version = "1.20"
+  cluster_version = "1.21"
   tags = {
     "Owner"       = "Chris Funderburg"
     "Environment" = "Lab/Demo/Testing"
@@ -25,7 +25,7 @@ locals {
   enable_termination_handler      = true  # ok
   enable_autoscaler               = true  # ok
   enable_alb_ingress_controller   = true  # ok
-  enable_nginx_ingress_controller = false # untested
+  enable_nginx_ingress_controller = true  # untested
   enable_external_dns             = false # untested
   enable_certificate_manager      = false # BROKEN
 

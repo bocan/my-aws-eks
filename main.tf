@@ -46,7 +46,7 @@ module "eks" {
   enable_irsa               = true
   cluster_log_kms_key_id    = aws_kms_key.ekslogs.arn
 
-  # This fixes a bug.  There currently isn't a 1.20 windows.  Only Linux
+  # This fixes a bug.  There currently isn't a 1.21 windows.  Only Linux
   worker_ami_name_filter_windows = "*"
 
   cluster_encryption_config = [

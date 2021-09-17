@@ -5,9 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this
 project adheres to [Semantic Versioning](http://semver.org/).
 
-<a name="unreleased"></a>
-## [Unreleased]
-
+<a name="v0.12.0"></a>
+## [v0.12.0] - 2021-06-14
+FEATURES:
+- Enabled ALB Load Balancer after successful testing
+- Added ALB Ingress Examples
+- Bump Kubernetes Version
+- Run with later Terraform
+- Bump NGINX Controller
 
 <a name="v0.11.0"></a>
 ## [v0.11.0] - 2021-06-11
@@ -34,5 +39,6 @@ FEATURES:
 - Add pre-commit tooling, and update one tf module
 
 
-[Unreleased]: https://github.com/bocan/my-aws-eks/compare/v0.11.0-rc.2...HEAD
+[Unreleased]: https://github.com/bocan/my-aws-eks/compare/v0.12.0...HEAD
 [v0.11.0]: https://github.com/bocan/my-aws-eks/compare/v0.10.0...v0.11.0
+[v0.12.0]: https://github.com/bocan/my-aws-eks/compare/v0.11.0...v0.12.0

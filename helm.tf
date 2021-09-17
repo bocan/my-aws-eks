@@ -82,8 +82,11 @@ module "nginx-ingress-controller" {
     module.eks, null_resource.kube_config, null_resource.install_calico_plugin
   ]
   version            = "0.2.0"
-  helm_chart_version = "3.31.0"
+  helm_chart_version = "3.33.0"
   k8s_namespace      = "kube-system"
+
+  settings = { "controler.hostNetwork" = true }
+
 }
 
 module "external_dns" {

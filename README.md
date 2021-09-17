@@ -7,7 +7,7 @@ I couldn't find any example Terraform projects to make an EKS cluster that I was
 It currently features:
 
 * Custom VPC Setup.
-* Kubernetes 1.20.
+* Kubernetes 1.21.
 * Secrets Encryption via a rotating customer-managed KMS key.
 * Cloudwatch Encryption via a rotating customer-managed KMS key.
 * Control Plane logging to Cloudwatch.
@@ -21,7 +21,7 @@ It currently features:
     * 1 t3.small instance for safety.  The autoscaler pod should run here.
     * 1 to 5 t3.medium spot instances.  Ideally, most of the workload should run on these. The spot price is set to the on-demand price.
 * Configurable mapping of accounts, IAM roles, and IAM users to the aws-auth conifgmap.
-* Bleeding edge compatibility with Terraform 15.
+* (Occasionally) bleeding edge compatibility with Terraform 1.0.7
 * Generation of the Kubeconfig needed for kubectl, helm, etc.
 
 ## Key Aims
@@ -32,7 +32,7 @@ It currently features:
 
 ## Installation.
 
-* This was last run with Terraform 0.15.4. 
+* This was last run with Terraform 1.0.7
 * Just edit what you need to in provider.tf to allow you to connect, and put what you want into local.tf 
 * Run a terraform apply.
 
