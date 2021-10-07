@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this
 project adheres to [Semantic Versioning](http://semver.org/).
 
+<a name="v0.13.0"></a>
+## [v0.13.0] - 2021-10-07
+FEATURES:
+- Convert ALB Load Balancer to a pure Helm chart rather than a module.
+- Run with later Terraform
+- Bump NGINX Controller
+- Update Calico script
+
 <a name="v0.12.0"></a>
 ## [v0.12.0] - 2021-06-14
 FEATURES:

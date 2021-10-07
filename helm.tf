@@ -55,25 +55,32 @@ resource "helm_release" "autoscaler" {
 
 }
 
-module "alb_ingress_controller" {
-  count  = local.enable_alb_ingress_controller ? 1 : 0
-  #source = "git::github.com/GSA/terraform-kubernetes-aws-load-balancer-controller?ref=v4.1.0"
-  source = "github.com/ashtonian/terraform-kubernetes-aws-load-balancer-controller"
+resource "helm_release" "alb_ingress_controller" {
+  count      = local.enable_alb_ingress_controller ? 1 : 0
+  name       = "aws-load-balancer-controller"
+  repository = "https://aws.github.io/eks-charts"
+  chart      = "aws-load-balancer-controller"
+  version    = "1.2.6"
+  namespace  = "kube-system"
+  atomic     = true
+  timeout    = 900
+  values = [
+    yamlencode({
+      "clusterName" : local.cluster_name,
+      "serviceAccount" : {
+        "create" : true,
+        "name" : "alb-ingress-controller"
+      },
+      "region" : local.region,
+      "vpcId" : module.vpc.vpc_id,
+      "hostNetwork" : true
+  })]
+
   depends_on = [
     module.eks, null_resource.kube_config, null_resource.install_calico_plugin
   ]
-
-  k8s_cluster_type = "eks"
-  k8s_namespace    = "kube-system"
-
-  enable_host_networking = true
-
-  aws_region_name  = local.region
-  k8s_cluster_name = local.cluster_name
-  alb_controller_depends_on = [
-    module.eks
-  ]
 }
+
 
 module "nginx-ingress-controller" {
   count  = local.enable_nginx_ingress_controller ? 1 : 0
@@ -81,8 +88,8 @@ module "nginx-ingress-controller" {
   depends_on = [
     module.eks, null_resource.kube_config, null_resource.install_calico_plugin
   ]
-  version            = "0.2.0"
-  helm_chart_version = "3.33.0"
+  version            = "0.3.0"
+  helm_chart_version = "3.35.0"
   k8s_namespace      = "kube-system"
 
   settings = { "controler.hostNetwork" = true }

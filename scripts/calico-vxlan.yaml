@@ -13,9 +13,15 @@ data:
   calico_backend: "vxlan"
 
   # Configure the MTU to use for workload interfaces and tunnels.
-  # By default, MTU is auto-detected, and explicitly setting this field should not be required.
-  # You can override auto-detection by providing a non-zero value.
-  veth_mtu: "0"
+  # - If Wireguard is enabled, set to your network MTU - 60
+  # - Otherwise, if VXLAN or BPF mode is enabled, set to your network MTU - 50
+  # - Otherwise, if IPIP is enabled, set to your network MTU - 20
+  # - Otherwise, if not using any encapsulation, set to your network MTU.
+  veth_mtu: "8951"
+  # veth_mtu: "" # auto-detect MTU
+  # veth_mtu: "8951" # use this if provider is AWS
+  # veth_mtu: "1400" # use this if provider is OpenStack
+  # veth_mtu: "1410" # use this if provider is GCE
 
   # The CNI network configuration to install on each node. The special
   # values in this config will be automatically populated.
@@ -3611,19 +3617,19 @@ spec:
             privileged: true
         # Adds a Flex Volume Driver that creates a per-pod Unix Domain Socket to allow Dikastes
         # to communicate with Felix over the Policy Sync API.
-        - name: flexvol-driver
-          image: docker.io/calico/pod2daemon-flexvol:v3.19.1
-          volumeMounts:
-          - name: flexvol-driver-host
-            mountPath: /host/driver
-          securityContext:
-            privileged: true
+        # - name: flexvol-driver
+        #   image: docker.io/calico/pod2daemon-flexvol:v3.19.1
+        #   volumeMounts:
+        #   - name: flexvol-driver-host
+        #     mountPath: /host/driver
+        #   securityContext:
+        #     privileged: true
       containers:
         # Runs calico-node container on each Kubernetes node. This
         # container programs network policy and routes on each
         # host.
         - name: calico-node
-          image: docker.io/calico/node:v3.19.1
+          image: calico/node:v3.19.1
           envFrom:
           - configMapRef:
               # Allow KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT to be overridden for eBPF mode.
@@ -3678,13 +3684,13 @@ spec:
                   name: calico-config
                   key: veth_mtu
             # Disable AWS source-destination check on nodes.
-            - name: FELIX_AWSSRCDSTCHECK
-              value: Disable
+            # - name: FELIX_AWSSRCDSTCHECK
+            #   value: Disable
             # The default IPv4 pool to create on startup if none exists. Pod IPs will be
             # chosen from this range. Changing this value after installation will have
             # no effect. This should fall within `--cluster-cidr`.
-            # - name: CALICO_IPV4POOL_CIDR
-            #   value: "192.168.0.0/16"
+            - name: CALICO_IPV4POOL_CIDR
+              value: ""
             # Disable file logging so `kubectl logs` works.
             - name: CALICO_DISABLE_FILE_LOGGING
               value: "true"
@@ -3782,10 +3788,10 @@ spec:
             type: DirectoryOrCreate
             path: /var/run/nodeagent
         # Used to install Flex Volume Driver
-        - name: flexvol-driver-host
-          hostPath:
-            type: DirectoryOrCreate
-            path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
+        # - name: flexvol-driver-host
+        #   hostPath:
+        #     type: DirectoryOrCreate
+        #     path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/nodeagent~uds
 ---
 
 apiVersion: v1
@@ -3831,7 +3837,7 @@ spec:
       priorityClassName: system-cluster-critical
       containers:
         - name: calico-kube-controllers
-          image: docker.io/calico/kube-controllers:v3.19.1
+          image: calico/kube-controllers:v3.19.1
           env:
             # Choose which controllers to run.
             - name: ENABLED_CONTROLLERS
