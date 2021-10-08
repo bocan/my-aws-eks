@@ -8,10 +8,11 @@ project adheres to [Semantic Versioning](http://semver.org/).
 <a name="v0.13.0"></a>
 ## [v0.13.0] - 2021-10-07
 FEATURES:
-- Convert ALB Load Balancer to a pure Helm chart rather than a module.
+- Moved ALB Load Balancer Helm chart locally and simplified it.
 - Run with later Terraform
 - Bump NGINX Controller
-- Update Calico script
+- Updated the Calico script
+- Finally tied the autoscaler to the on-demand node with a nodeselector
 
 <a name="v0.12.0"></a>
 ## [v0.12.0] - 2021-06-14
