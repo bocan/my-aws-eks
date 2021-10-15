@@ -1,3 +1,9 @@
+###############################################################################
+# AWS Node Termination Handler
+# https://artifacthub.io/packages/helm/aws/aws-node-termination-handler
+# https://github.com/aws/eks-charts/tree/master/stable/aws-node-termination-handler
+# https://github.com/aws/aws-node-termination-handler
+###############################################################################
 resource "helm_release" "aws_node_termination_handler" {
   count = local.enable_termination_handler ? 1 : 0
   depends_on = [
@@ -31,6 +37,11 @@ resource "helm_release" "aws_node_termination_handler" {
   }
 }
 
+###############################################################################
+# Cluster Autoscaler
+# https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
+#
+###############################################################################
 resource "helm_release" "autoscaler" {
   count = local.enable_autoscaler ? 1 : 0
   depends_on = [
@@ -58,6 +69,8 @@ resource "helm_release" "autoscaler" {
 ###############################################################################
 # ALB Ingress Controller
 # https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller
+# https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
+# https://github.com/kubernetes-sigs/aws-load-balancer-controller
 ###############################################################################
 module "alb_ingress_controller" {
   count  = local.enable_alb_ingress_controller ? 1 : 0
