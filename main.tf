@@ -37,17 +37,19 @@ module "vpc" {
 }
 
 module "eks" {
-  source                    = "terraform-aws-modules/eks/aws"
-  cluster_name              = local.cluster_name
-  cluster_version           = local.cluster_version
-  subnets                   = module.vpc.private_subnets
-  vpc_id                    = module.vpc.vpc_id
-  cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  enable_irsa               = true
-  cluster_log_kms_key_id    = aws_kms_key.ekslogs.arn
+  source                          = "terraform-aws-modules/eks/aws"
+  cluster_name                    = local.cluster_name
+  cluster_version                 = local.cluster_version
+  cluster_endpoint_private_access = true
+  cluster_endpoint_public_access  = true
+  subnet_ids                      = module.vpc.private_subnets
+  vpc_id                          = module.vpc.vpc_id
+  cluster_enabled_log_types       = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  enable_irsa                     = true
+  cloudwatch_log_group_kms_key_id = aws_kms_key.ekslogs.arn
 
   # This fixes a bug.  There currently isn't a 1.21 windows.  Only Linux
-  worker_ami_name_filter_windows = "*"
+  # worker_ami_name_filter_windows = "*"
 
   cluster_encryption_config = [
     {
@@ -55,44 +57,50 @@ module "eks" {
       resources        = ["secrets"]
     }
   ]
-  worker_groups = [
-    {
+
+  self_managed_node_groups = {
+    worker_group_1 = {
       name                = "on-demand-1"
+      instance_type       = local.on_demand_instance_type
+      public_ip    = false
+      min_size     = 1
+      max_size     = local.on_demand_asg_max_size
+      desired_size = 1
+      disk_size    = local.on_demand_root_volume_size
+      bootstrap_extra_args = "--kubelet_extra_args  = '--node-labels=node.kubernetes.io/lifecycle=normal'"
+
+
+
+
       root_encrypted      = true
       capacity_type       = "ON_DEMAND"
-      instance_type       = local.on_demand_instance_type
-      root_volume_size    = local.on_demand_root_volume_size
-      asg_max_size        = local.on_demand_asg_max_size
-      kubelet_extra_args  = "--node-labels=node.kubernetes.io/lifecycle=normal"
       suspended_processes = ["AZRebalance"]
     },
-    {
+    worker_group_2 = {
       name                = "spot-1"
+      instance_type       = local.spot_instance_type
+      public_ip    = false
+      min_size     = 1
+      max_size     = local.spot_asg_max_size
+      desired_size = 1
+      disk_size    = local.on_demand_root_volume_size
+      bootstrap_extra_args = "--kubelet_extra_args  = '--node-labels=node.kubernetes.io/lifecycle=spot'"
+
+
+
       root_encrypted      = true
       capacity_type       = "SPOT"
       spot_price          = local.spot_price
-      instance_type       = local.spot_instance_type
-      root_volume_size    = local.spot_root_volume_size
-      asg_max_size        = local.spot_asg_max_size
-      kubelet_extra_args  = "--node-labels=node.kubernetes.io/lifecycle=spot"
       suspended_processes = ["AZRebalance"]
-      tags = [
-        {
-          "key"                 = "k8s.io/cluster-autoscaler/enabled"
-          "propagate_at_launch" = "false"
-          "value"               = "true"
-        },
-        {
-          "key"                 = "k8s.io/cluster-autoscaler/${local.cluster_name}"
-          "propagate_at_launch" = "false"
-          "value"               = "true"
-        }
-      ]
+      #tags = {
+      #    "k8s.io/cluster-autoscaler/enabled" = "true"
+      #    "k8s.io/cluster-autoscaler/${local.cluster_name}" = "true"
+      #}
     }
-  ]
-  map_roles    = local.map_roles
-  map_users    = local.map_users
-  map_accounts = local.map_accounts
+  }
+  #map_roles    = local.map_roles
+  #map_users    = local.map_users
+  #map_accounts = local.map_accounts
 }
 
 resource "null_resource" "kube_config" {

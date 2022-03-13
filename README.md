@@ -18,10 +18,10 @@ It currently features:
     * [Cluster-Autoscaler](https://github.com/kubernetes/autoscaler) for autoscaling
     * [AWS's Node Termination Handler](https://github.com/aws/aws-node-termination-handler) to watch for Spot instances being terminiated and draining them, rebalancing requests, and scheduled event draining
 * Configurable ausoscaling EC2 Pools. By default it runs:
-    * 1 t3.small instance for safety.  The autoscaler pod runs here.
+    * 1 t3.small on-demand instance for safety.  The autoscaler pod runs here.
     * 1 to 5 t3.medium spot instances.  Ideally, most of the workload should run on these. The spot price is set to the on-demand price.
 * Configurable mapping of accounts, IAM roles, and IAM users to the aws-auth conifgmap.
-* (Occasionally) bleeding edge compatibility with Terraform 1.0.7
+* (Occasionally) bleeding edge compatibility with Terraform 1.1.7
 * Generation of the Kubeconfig needed for kubectl, helm, etc.
 
 ## Key Aims
@@ -32,7 +32,7 @@ It currently features:
 
 ## Installation.
 
-* This was last run with Terraform 1.0.7
+* This was last run with Terraform 1.1.7
 * Just edit what you need to in provider.tf to allow you to connect, and put what you want into local.tf 
 * Run a terraform apply.
 

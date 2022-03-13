@@ -8,6 +8,5 @@ terraform {
     kubernetes = "~> 2.2.0"
     cloudinit  = "~> 2.2.0"
     null       = "~> 3.1.0"
-    template   = "~> 2.2.0"
   }
 }
