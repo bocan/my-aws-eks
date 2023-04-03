@@ -14,8 +14,6 @@ module "vpc" {
   enable_dns_hostnames   = true
   enable_dns_support     = true
 
-  enable_dhcp_options        = true
-  dhcp_options_domain_name   = "service.consul"
   manage_default_route_table = true
   default_route_table_tags   = { DefaultRouteTable = true }
 
@@ -38,6 +36,7 @@ module "vpc" {
 
 module "eks" {
   source                    = "terraform-aws-modules/eks/aws"
+  version                   = "17.24.0"
   cluster_name              = local.cluster_name
   cluster_version           = local.cluster_version
   subnets                   = module.vpc.private_subnets
@@ -45,9 +44,6 @@ module "eks" {
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   enable_irsa               = true
   cluster_log_kms_key_id    = aws_kms_key.ekslogs.arn
-
-  # This fixes a bug.  There currently isn't a 1.21 windows.  Only Linux
-  worker_ami_name_filter_windows = "*"
 
   cluster_encryption_config = [
     {
